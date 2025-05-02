@@ -1,28 +1,35 @@
-import { AppBar, Box, IconButton, Typography, useMediaQuery } from '@mui/material'
+import { AppBar, Box, Button, IconButton, Typography, useMediaQuery } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import jungle from '../../assets/jungle.jpg'
+import NavBar from './NavBar/NavBar';
 
 
 
 const Header = () => {
-    const isMobile = useMediaQuery('(max-width: 600px)');
+    const isMobile = useMediaQuery('(max-width: 760px)');
     return (
         <Box>
             <AppBar position="static" sx={{ width: '100%', backgroundColor: 'transparent', backgroundImage: `url(${jungle})` }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
-                    <img src="/dinologo.png" alt="logo" width="100" />
-                    <Typography sx={{ fontFamily: "Rubik Distressed", fontSize: isMobile ? '30px' : '50px', color: 'white', textShadow: '1px 1px 4px #000000' }}>
+                    <Button onClick={() => window.location.replace('/')} sx={{p: 0}}>
+                        <img src="/dinologo.png" alt="logo" width="100" />
+                    </Button>
+                    <Typography sx={{ fontFamily: "Rubik Distressed", fontSize: isMobile ? '30px' : '50px', color: 'white', textShadow: '1px 1px 4px #000000', mr: "auto" }}>
                         MOVIEVAURUS
                     </Typography>
-                    <IconButton
-                        size="small"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ ml: "auto", mr: 2 }}
-                    >
-                        <MenuIcon fontSize='large' sx={{ textShadow: '1px 1px 4px #000000' }} />
-                    </IconButton>
+                    {isMobile ? (
+                        <IconButton
+                            size="small"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ ml: "auto", mr: 2 }}
+                        >
+                            <MenuIcon fontSize='large' sx={{ textShadow: '1px 1px 4px #000000' }} />
+                        </IconButton>
+                    ) : (
+                        <NavBar />
+                    )}
                 </Box>
             </AppBar>
         </Box>

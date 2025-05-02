@@ -1,10 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
 import MovieCard from '../Cards/MovieCard';
-import { Button, IconButton } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import SearchBar from '../SearchBar/SearchBar';
 
 const fetchCast = async (id) => {
     const res = await fetch(`https://api.tvmaze.com/shows/${id}/cast`);
@@ -13,7 +11,6 @@ const fetchCast = async (id) => {
 
 export default function CardsGrid() {
     const [shows, setShows] = React.useState([]);
-    const [query, setQuery] = React.useState('');
 
     const fetchShows = async (searchTerm = '') => {
         let showsData;
@@ -25,7 +22,7 @@ export default function CardsGrid() {
         } else {
             const res = await fetch('https://api.tvmaze.com/shows');
             const data = await res.json();
-            showsData = data.slice(0, 10);
+            showsData = data.slice(0, 12);
         }
 
         const showsWithCast = await Promise.all(
@@ -41,27 +38,12 @@ export default function CardsGrid() {
         fetchShows();
     }, []);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        fetchShows(query);
-    };
-
     return (
         <Box sx={{ flexGrow: 1, p: 2, mt: 2 }}>
-            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 2, mb: 4 }}>
-                <TextField
-                    label="Search shows"
-                    variant="outlined"
-                    fullWidth
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
-                <Button type="submit">
-                    <SearchIcon />
-                </Button>
+            <Box sx={{px: 3}}>
+                <SearchBar onSearch={fetchShows} />
             </Box>
-
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
                 {shows.map(show => (
                     <Grid item key={show.id} xs={12} sm={6} md={4}>
                         <MovieCard show={show} />

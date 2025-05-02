@@ -12,27 +12,29 @@ export default function MovieCard({ show }) {
 
     return (
         <Card sx={{
-            maxWidth: 345, height: 650, transition: 'transform 0.3s ease',
+            maxWidth: 345, height: 720, color: '#333', transition: 'transform 0.3s ease', background: ' #5bc1d8', color: "white",
             '&:hover': {
                 transform: 'scale(1.05)',
                 cursor: 'pointer'
             },
         }}>
             <CardMedia
-                sx={{ height: 240 }}
+                sx={{ height: 480 }}
                 image={show.image?.medium || '/placeholder.jpg'}
                 title={show.name}
+                
             />
-            <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 2 }}>
+            <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 2, textShadow: '1px 1px 2px #4D99C7' }}>
                 <Box>
                     <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: 'left', fontFamily: "Sour Gummy", fontWeight: 'bold' }}>
                         {show.name}
                     </Typography>
+                    
                 </Box>
                 <Box>
                     <Typography
                         variant="body2"
-                        sx={{ color: 'text.secondary', textAlign: 'left', fontFamily: "Sour Gummy" }}
+                        sx={{ textAlign: 'left', fontFamily: "Sour Gummy" }}
                     >
                         {truncatedDesc}
                     </Typography>

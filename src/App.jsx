@@ -3,7 +3,6 @@ import './App.css';
 import Footer from './components/Footer/Footer.jsx';
 import Grid from './components/Grid/CardsGrid.jsx';
 import Header from './components/Header/Header.jsx';
-import SearchBar from './components/SearchBar/SearchBar.jsx';
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
       <main>
         <Grid />
       </main>
-
       <footer>
         <Footer />
       </footer>

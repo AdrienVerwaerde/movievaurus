@@ -7,7 +7,6 @@ const NavBar = () => {
             <ListItem sx={link}><a href="/">Home</a></ListItem>
             <ListItem sx={link}><a href="/">Movies</a></ListItem>
             <ListItem sx={link}><a href="/">Shows</a></ListItem>
-            <ListItem sx={link}><a href="/">Trending</a></ListItem>  
         </List>
     )
 }

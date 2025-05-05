@@ -41,7 +41,7 @@ export default function CardsGrid() {
     }, []);
 
     return (
-        <Box sx={{ flexGrow: 1, p: 2, m: 2, backgroundColor: "white", borderRadius: "12px", boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}>
+        <Box sx={{ flexGrow: 1, p: 2, pb: 4, m: 2, backgroundColor: "white", borderRadius: "12px", boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}>
 
             <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
                 <Box sx={{ width: isMobile ? "80%" : "100%" }}>

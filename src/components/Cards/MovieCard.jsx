@@ -14,7 +14,7 @@ export default function MovieCard({ show }) {
     return (
         <Link to={`/${show.id}`} style={{ textDecoration: 'none' }}>
             <Card sx={{
-                width: 345, height: 720, color: '#333', transition: 'transform 0.3s ease', background: ' #5bc1d8', color: "white",
+                maxWidth: 345, minHeight: 720, color: '#333', transition: 'transform 0.3s ease', background: 'linear-gradient(to bottom right, #4B8AB9, #5BC1D8)', color: "white",
                 '&:hover': {
                     transform: 'scale(1.05)',
                     cursor: 'pointer'

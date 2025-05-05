@@ -15,21 +15,8 @@ const Header = () => {
                         <img src="/dinologo.png" alt="logo" width="100" />
                     </Button>
                     <Typography sx={{ fontFamily: "Rubik Distressed", fontSize: isMobile ? '30px' : '50px', color: 'white', textShadow: '1px 1px 4px #000000', mr: "auto" }}>
-                        MOVIEVAURUS
+                        FÉRIEVAURUS
                     </Typography>
-                    {isMobile ? (
-                        <IconButton
-                            size="small"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ ml: "auto", mr: 2 }}
-                        >
-                            <MenuIcon fontSize='large' sx={{ textShadow: '1px 1px 4px #000000' }} />
-                        </IconButton>
-                    ) : (
-                        <NavBar />
-                    )}
                 </Box>
             </AppBar>
         </Box>

@@ -2,8 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gidole&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Rubik+Bubbles&family=Rubik+Distressed&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 .App {
   text-align: center;
-  background-image: url("./assets/dino.png");
-  background-size: 150px;
 }
 
 .App-logo {

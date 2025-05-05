@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import MovieCard from '../Cards/MovieCard';
 import SearchBar from '../SearchBar/SearchBar';
+import { useMediaQuery } from '@mui/material';
 
 const fetchCast = async (id) => {
     const res = await fetch(`https://api.tvmaze.com/shows/${id}/cast`);
@@ -11,6 +12,7 @@ const fetchCast = async (id) => {
 
 export default function CardsGrid() {
     const [shows, setShows] = React.useState([]);
+    const isMobile = useMediaQuery('(max-width: 760px)');
 
     const fetchShows = async (searchTerm = '') => {
         let showsData;
@@ -39,11 +41,12 @@ export default function CardsGrid() {
     }, []);
 
     return (
-        <Box sx={{ flexGrow: 1, p: 2, mt: 2 }}>
-            <Box sx={{px: 3}}>
-                <SearchBar onSearch={fetchShows} />
-            </Box>
+        <Box sx={{ flexGrow: 1, p: 2, m: 2, backgroundColor: "white", borderRadius: "12px", boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)" }}>
+
             <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
+                <Box sx={{ width: isMobile ? "80%" : "100%" }}>
+                    <SearchBar onSearch={fetchShows} />
+                </Box>
                 {shows.map(show => (
                     <Grid item key={show.id} xs={12} sm={6} md={4}>
                         <MovieCard show={show} />

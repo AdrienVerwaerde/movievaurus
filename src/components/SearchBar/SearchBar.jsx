@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Box, TextField, InputAdornment, IconButton } from '@mui/material';
+import { Box, TextField, InputAdornment, IconButton, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function SearchBar({ onSearch }) {
     const [query, setQuery] = useState('');
+    const isMobile = useMediaQuery('(max-width: 760px)');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -11,9 +12,9 @@ export default function SearchBar({ onSearch }) {
     };
 
     return (
-        <Box component="form" onSubmit={handleSubmit} sx={{ mb: 2, backgroundColor: "white", p: 2, borderRadius: '12px' }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{mt: 1, ml: isMobile ? 0 : 1, maxWidth: "540px"}}>
             <TextField
-                label="Search shows or movies..."
+                label="Search shows..."
                 variant="outlined"
                 fullWidth
                 value={query}

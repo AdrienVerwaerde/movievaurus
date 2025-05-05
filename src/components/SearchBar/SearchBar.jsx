@@ -12,7 +12,7 @@ export default function SearchBar({ onSearch }) {
     };
 
     return (
-        <Box component="form" onSubmit={handleSubmit} sx={{mt: 1, ml: isMobile ? 0 : 1, maxWidth: "540px"}}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: isMobile ? "100%" : "480px" }}>
             <TextField
                 label="Search shows..."
                 variant="outlined"

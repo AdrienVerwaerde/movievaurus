@@ -106,6 +106,7 @@ export default function DetailedPage() {
                 {cast.length > 6 && (
                     <Button
                         onClick={() => setShowFullCast(prev => !prev)}
+                        disableRipple
                         sx={{ mt: 2, alignSelf: 'center', fontFamily: "Sour Gummy", backgroundColor: 'transparent', fontWeight: 'bold', color: '#4B8AB9', '&:hover': { color: '#5bc1d8' }, transition: 'all ease 0.2s' }}
                     >
                         {showFullCast ? 'Show Less' : 'Show More'}

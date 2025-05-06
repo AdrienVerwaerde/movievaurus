@@ -7,15 +7,9 @@ import Header from './components/Header/Header.jsx';
 function App() {
   return (
       <div className="App">
-        <header>
-          <Header />
-        </header>
         <main>
           <Grid />
         </main>
-        <footer>
-          <Footer />
-        </footer>
       </div>
   );
 }

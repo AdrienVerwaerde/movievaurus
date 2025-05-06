@@ -56,7 +56,7 @@ export default function DetailedPage() {
                 </Button>
                 <Box sx={{ display: 'flex', flexDirection: isLargeScreen ? 'row' : 'column', alignItems: isMobile ? 'center' : 'flex-start', gap: 2, width: '100%' }}>
                     <Box>
-                        <img src={show.image?.original || ''} alt={show.name} width={isMobile ? '100%' : "90%"} />
+                        <img src={show.image?.original || 'https://placehold.co/345x480?text=🚫'} alt={show.name} width={isMobile ? '100%' : "90%"} />
                     </Box>
                     <Box>
                         <Typography variant="h3" gutterBottom sx={{ alignSelf: 'flex-start', fontFamily: "Sour Gummy", fontWeight: 'bold', mt: isMobile ? 2 : 0, lineHeight: isLargeScreen ? '0.65' : '1' }}>{show.name}</Typography>

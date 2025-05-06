@@ -76,7 +76,7 @@ export default function ActorPage() {
                                 <Link to={`/${show.id}`} style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                         <img
-                                            src={show.image?.medium || ''}
+                                            src={show.image?.medium || 'https://placehold.co/345x480?text=🚫'}
                                             alt={show.name}
                                             style={{ width: 60, height: 85, objectFit: 'cover', borderRadius: 4 }}
                                         />

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Box, Typography, Avatar, Button, useMediaQuery, Grid, Card, Collapse, Stack } from '@mui/material';
+import { Box, Typography, Avatar, Button, useMediaQuery, Grid, Card, Collapse, Stack, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function DetailedPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [show, setShow] = useState(null);
     const [cast, setCast] = useState([]);
+    const [episodes, setEpisodes] = useState([]);
+
     const [showFullCast, setShowFullCast] = useState(false);
     const [episodeCount, setEpisodeCount] = useState(null);
     const isMobile = useMediaQuery('(max-width: 760px)');
@@ -26,10 +29,17 @@ export default function DetailedPage() {
             const episodesRes = await fetch(`https://api.tvmaze.com/shows/${id}/episodes`);
             const episodesData = await episodesRes.json();
             setEpisodeCount(episodesData.length);
+            setEpisodes(episodesData);
         };
 
         fetchDetails();
     }, [id]);
+
+    const groupedBySeason = episodes.reduce((acc, ep) => {
+        acc[ep.season] = acc[ep.season] || [];
+        acc[ep.season].push(ep);
+        return acc;
+    }, {});
 
     if (!show) return <Typography>Loading...</Typography>;
 
@@ -38,11 +48,11 @@ export default function DetailedPage() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2 }}>
             <Card sx={{ p: 2, width: isMobile ? '80%' : '50%', display: 'flex', flexDirection: 'column', borderRadius: '12px', alignItems: 'flex-start' }}>
-                <Button onClick={() => navigate(-1)}sx={{ p: 0, mb: 1, backgroundColor: 'transparent', display: 'block' }}>
-                        <Typography sx={{ display: 'flex', alignItems: 'center', fontFamily: "Sour Gummy", fontWeight: 'bold', color: '#4B8AB9', '&:hover': { color: '#5bc1d8' }, transition: 'all ease 0.2s' }}>
-                            <ArrowBack fontSize='small' />
-                            Back
-                        </Typography>
+                <Button onClick={() => navigate(-1)} sx={{ p: 0, mb: 1, backgroundColor: 'transparent', display: 'block' }}>
+                    <Typography sx={{ display: 'flex', alignItems: 'center', fontFamily: "Sour Gummy", fontWeight: 'bold', color: '#4B8AB9', '&:hover': { color: '#5bc1d8' }, transition: 'all ease 0.2s' }}>
+                        <ArrowBack fontSize='small' />
+                        Back
+                    </Typography>
                 </Button>
                 <Box sx={{ display: 'flex', flexDirection: isLargeScreen ? 'row' : 'column', alignItems: isMobile ? 'center' : 'flex-start', gap: 2, width: '100%' }}>
                     <Box>
@@ -52,9 +62,10 @@ export default function DetailedPage() {
                         <Typography variant="h3" gutterBottom sx={{ alignSelf: 'flex-start', fontFamily: "Sour Gummy", fontWeight: 'bold', mt: isMobile ? 2 : 0, lineHeight: isLargeScreen ? '0.65' : '1' }}>{show.name}</Typography>
                         <Typography
                             variant="body1"
-                            sx={{ fontFamily: "Roboto, sans-serif", }}
+                            sx={{ fontFamily: "Roboto Slab", }}
                             dangerouslySetInnerHTML={{ __html: show.summary }}
                         />
+
 
                         {episodeCount !== null && (
                             <Typography variant="subtitle1" sx={{ fontFamily: "Sour Gummy", fontWeight: 'bold', alignSelf: 'flex-start' }}>
@@ -63,6 +74,29 @@ export default function DetailedPage() {
                         )}
                     </Box>
                 </Box>
+                <Typography variant="h5" sx={{ mt: 4, mb: 2, fontFamily: "Sour Gummy", fontWeight: 'bold' }}>
+                    Seasons & Episodes
+                </Typography>
+                {Object.entries(groupedBySeason).map(([season, eps]) => (
+                    <Accordion key={season} sx={{ width: '100%', backgroundColor: 'transparent', boxShadow: "none", border: '1px solid #333', borderRadius: "12px", mb: 1, '&:before': { backgroundColor: 'transparent' } }}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Typography sx={{ fontWeight: 'bold', fontFamily: 'Roboto Slab', color: '#4B8AB9' }}>
+                                Season {season}
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Stack spacing={1}>
+                                {eps.map(ep => (
+                                    <Box key={ep.id}>
+                                        <Typography variant="body2" sx={{ fontFamily: 'Roboto Slab' }}>
+                                            <strong>Episode {ep.number}:</strong> {ep.name}
+                                        </Typography>
+                                    </Box>
+                                ))}
+                            </Stack>
+                        </AccordionDetails>
+                    </Accordion>
+                ))}
                 <Typography variant="h5" sx={{ mt: 2, mb: 2, fontFamily: "Sour Gummy", fontWeight: 'bold', alignSelf: 'flex-start' }}>Cast</Typography>
                 <Grid container spacing={2}>
                     {cast.slice(0, 6).map(c => (
@@ -90,7 +124,6 @@ export default function DetailedPage() {
                         </Grid>
                     ))}
                     <Collapse in={showFullCast} timeout="auto" unmountOnExit style={{ width: '100%' }}>
-
                         <Grid container spacing={2}>
                             {cast.slice(6).map(c => (
                                 <Grid

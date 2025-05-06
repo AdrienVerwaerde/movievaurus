@@ -44,7 +44,7 @@ export default function MovieCard({ show }) {
                     </Box>
                     {show.cast && (
                         <Box>
-                            <Typography variant="body2" sx={{ fontStyle: 'italic', textAlign: 'left', fontFamily: "Roboto, sans-serif", pb: 2 }}>
+                            <Typography variant="body2" sx={{ fontStyle: 'italic', textAlign: 'left', fontFamily: "Roboto Slab", pb: 2 }}>
                                 {truncatedCast}
                             </Typography>
                         </Box>

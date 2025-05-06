@@ -6,7 +6,6 @@ import Header from './components/Header/Header.jsx';
 
 function App() {
   return (
-    <>
       <div className="App">
         <header>
           <Header />
@@ -18,7 +17,6 @@ function App() {
           <Footer />
         </footer>
       </div>
-    </>
   );
 }
 

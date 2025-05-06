@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Box, Typography, Avatar, Button, useMediaQuery, Grid, Card, Collapse } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Box, Typography, Avatar, Button, useMediaQuery, Grid, Card, Collapse, Stack } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 
 export default function DetailedPage() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [show, setShow] = useState(null);
     const [cast, setCast] = useState([]);
     const [showFullCast, setShowFullCast] = useState(false);
@@ -37,20 +37,19 @@ export default function DetailedPage() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2 }}>
-            <Card sx={{ p: 2, width: isMobile ? '90%' : '70%', display: 'flex', flexDirection: 'column', borderRadius: '12px' }}>
-                <Button sx={{ p: 0, mb: 1, alignSelf: 'flex-start', backgroundColor: 'transparent' }}>
-                    <a href="/">
-                        <Typography sx={{ display: 'flex', alignItems: 'center', fontFamily: "Sour Gummy", fontWeight: 'bold', color: '#4B8AB9', alignItems: 'center', '&:hover': { color: '#5bc1d8' }, transition: 'all ease 0.2s' }}>
+            <Card sx={{ p: 2, width: isMobile ? '80%' : '50%', display: 'flex', flexDirection: 'column', borderRadius: '12px', alignItems: 'flex-start' }}>
+                <Button onClick={() => navigate(-1)}sx={{ p: 0, mb: 1, backgroundColor: 'transparent', display: 'block' }}>
+                        <Typography sx={{ display: 'flex', alignItems: 'center', fontFamily: "Sour Gummy", fontWeight: 'bold', color: '#4B8AB9', '&:hover': { color: '#5bc1d8' }, transition: 'all ease 0.2s' }}>
                             <ArrowBack fontSize='small' />
                             Back
-                        </Typography></a>
+                        </Typography>
                 </Button>
                 <Box sx={{ display: 'flex', flexDirection: isLargeScreen ? 'row' : 'column', alignItems: isMobile ? 'center' : 'flex-start', gap: 2, width: '100%' }}>
                     <Box>
-                        <img src={show.image?.original || ''} alt={show.name} width="345px" />
+                        <img src={show.image?.original || ''} alt={show.name} width={isMobile ? '100%' : "90%"} />
                     </Box>
                     <Box>
-                        <Typography variant="h3" gutterBottom sx={{ alignSelf: 'flex-start', fontFamily: "Sour Gummy", fontWeight: 'bold', mt: 2 }}>{show.name}</Typography>
+                        <Typography variant="h3" gutterBottom sx={{ alignSelf: 'flex-start', fontFamily: "Sour Gummy", fontWeight: 'bold', mt: isMobile ? 2 : 0, lineHeight: isLargeScreen ? '0.65' : '1' }}>{show.name}</Typography>
                         <Typography
                             variant="body1"
                             sx={{ fontFamily: "Roboto, sans-serif", }}
@@ -74,15 +73,24 @@ export default function DetailedPage() {
                             md={4}
                             sx={{ display: 'flex', alignItems: 'center', gap: 1, width: isMobile ? '100%' : '40%' }}
                         >
-                            <Avatar
-                                alt={c.person.name}
-                                src={c.person.image?.medium || ''}
-                                sx={{ width: 64, height: 64 }}
-                            />
-                            <Typography>{c.person.name}</Typography>
+                            <Link
+                                to={`/actor/${c.person.id}`}
+                                style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'inherit' }}
+                            >
+                                <Avatar
+                                    alt={c.person.name}
+                                    src={c.person.image?.medium || ''}
+                                    sx={{ width: 64, height: 64 }}
+                                />
+                                <Stack direction="column">
+                                    <Typography>{c.person.name}</Typography>
+                                    <Typography sx={{ fontStyle: 'italic', color: '#4B8AB9' }}>{c.character.name}</Typography>
+                                </Stack>
+                            </Link>
                         </Grid>
                     ))}
                     <Collapse in={showFullCast} timeout="auto" unmountOnExit style={{ width: '100%' }}>
+
                         <Grid container spacing={2}>
                             {cast.slice(6).map(c => (
                                 <Grid
@@ -92,13 +100,22 @@ export default function DetailedPage() {
                                     md={4}
                                     sx={{ display: 'flex', alignItems: 'center', gap: 1, width: isMobile ? '100%' : '40%' }}
                                 >
-                                    <Avatar
-                                        alt={c.person.name}
-                                        src={c.person.image?.medium || ''}
-                                        sx={{ width: 64, height: 64 }}
-                                    />
-                                    <Typography>{c.person.name}</Typography>
+                                    <Link
+                                        to={`/person/${c.person.id}`}
+                                        style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'inherit' }}
+                                    >
+                                        <Avatar
+                                            alt={c.person.name}
+                                            src={c.person.image?.medium || ''}
+                                            sx={{ width: 64, height: 64 }}
+                                        />
+                                        <Stack direction="column">
+                                            <Typography>{c.person.name}</Typography>
+                                            <Typography sx={{ fontStyle: 'italic', color: '#4B8AB9' }}>{c.character.name}</Typography>
+                                        </Stack>
+                                    </Link>
                                 </Grid>
+
                             ))}
                         </Grid>
                     </Collapse>

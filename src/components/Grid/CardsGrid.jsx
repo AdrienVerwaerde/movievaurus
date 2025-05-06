@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import MovieCard from '../Cards/MovieCard';
 import SearchBar from '../SearchBar/SearchBar';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Fade, useMediaQuery } from '@mui/material';
 
 const fetchCast = async (id) => {
     const res = await fetch(`https://api.tvmaze.com/shows/${id}/cast`);
@@ -61,7 +61,11 @@ export default function CardsGrid() {
             <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
                 {visibleShows.map(show => (
                     <Grid item key={show.id} xs={12} sm={6} md={4}>
-                        <MovieCard show={show} />
+                        <Fade in={true} timeout={500}>
+                            <Box>
+                                <MovieCard show={show} />
+                            </Box>
+                        </Fade>
                     </Grid>
                 ))}
             </Grid>

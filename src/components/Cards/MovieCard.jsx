@@ -15,14 +15,14 @@ export default function MovieCard({ show }) {
     return (
         <Link to={`/${show.id}`} style={{ textDecoration: 'none' }}>
             <Card sx={{
-                maxWidth: 345, maxHeight: isMobile ? 1200 : 720, color: '#333', transition: 'transform 0.3s ease', background: 'linear-gradient(to bottom right, #4B8AB9, #5BC1D8)', color: "white",
+                maxHeight: isMobile ? 1200 : 720, minHeight: 720, minWidth: isMobile ? 0 : 345, maxWidth: isMobile ? 345 : 345, transition: 'transform 0.3s ease', background: 'linear-gradient(to bottom right, #4B8AB9, #5BC1D8)', color: "white",
                 '&:hover': {
                     transform: 'scale(1.05)',
                     cursor: 'pointer'
                 },
             }}>
                 <CardMedia
-                    sx={{ height: 480 }}
+                    sx={{height: 480 }}
                     image={show.image?.medium || 'https://placehold.co/345x480?text=🚫'}
                     title={show.name}
 

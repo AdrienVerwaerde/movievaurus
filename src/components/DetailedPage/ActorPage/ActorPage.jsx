@@ -15,6 +15,12 @@ export default function ActorPage() {
         const fetchPerson = async () => {
             const res = await fetch(`https://api.tvmaze.com/people/${id}`);
             const data = await res.json();
+
+            if (data?.message === 'Not Found') {
+                setPerson(null);
+                return;
+            }
+
             setPerson(data);
 
             const creditsRes = await fetch(`https://api.tvmaze.com/people/${id}/castcredits?embed=show`);
@@ -23,19 +29,33 @@ export default function ActorPage() {
         };
 
         fetchPerson();
-
     }, [id]);
 
-    if (!person) return <CircularProgress sx={{ mt: 4 }} />;
+    if (person === null) {
+        return (
+            <Box sx={{ mt: 8, textAlign: 'center' }}>
+                <Card sx={{ p: 4 }}>
+                    <Typography variant="h5" sx={{ fontFamily: 'Sour Gummy', color: 'gray' }}>
+                        No information available for this actor.
+                    </Typography>
+                    <Button onClick={() => navigate(-1)} sx={{ mt: 2 }}>
+                        Go Back
+                    </Button>
+                </Card>
+            </Box>
+        );
+    }
+
+
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Card sx={{ m: 2, p: 4, width: isMobile ? '80%' : '50%', borderRadius: "12px", display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'center' : 'flex-start' }}>
                 <Button onClick={() => navigate(-1)} sx={{ p: 0, mb: 1, alignSelf: 'flex-start', backgroundColor: 'transparent' }}>
-                        <Typography sx={{ display: 'flex', alignItems: 'center', fontFamily: "Sour Gummy", fontWeight: 'bold', color: '#4B8AB9', '&:hover': { color: '#5bc1d8' }, transition: 'all ease 0.2s' }}>
-                            <ArrowBack fontSize='small' />
-                            Back
-                        </Typography>
+                    <Typography sx={{ display: 'flex', alignItems: 'center', fontFamily: "Sour Gummy", fontWeight: 'bold', color: '#4B8AB9', '&:hover': { color: '#5bc1d8' }, transition: 'all ease 0.2s' }}>
+                        <ArrowBack fontSize='small' />
+                        Back
+                    </Typography>
                 </Button>
                 <Avatar
                     alt={person.name}
